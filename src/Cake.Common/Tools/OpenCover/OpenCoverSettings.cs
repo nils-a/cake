@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+
 using Cake.Core.IO;
 using Cake.Core.Tooling;
 
@@ -49,7 +50,7 @@ namespace Cake.Common.Tools.OpenCover
         /// <summary>
         /// Gets or sets the register option
         /// </summary>
-        public string Register { get; set; }
+        public OpenCoverRegisterOption Register { get; set; }
 
         /// <summary>
         /// Gets or sets the Return target code offset to be used
@@ -113,7 +114,7 @@ namespace Cake.Common.Tools.OpenCover
             _filters = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             _excludedAttributeFilters = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             _excludedFileFilters = new HashSet<string>(StringComparer.Ordinal);
-            Register = "user";
+            Register = OpenCoverRegisterOption.User;
             LogLevel = OpenCoverLogLevel.Info;
             _excludeDirectories = new HashSet<DirectoryPath>();
             _searchDirectories = new HashSet<DirectoryPath>();

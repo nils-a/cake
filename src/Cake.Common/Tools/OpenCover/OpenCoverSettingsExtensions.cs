@@ -2,6 +2,8 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using Cake.Core.IO;
+
 using System;
 
 namespace Cake.Common.Tools.OpenCover
@@ -57,6 +59,67 @@ namespace Cake.Common.Tools.OpenCover
                 throw new ArgumentNullException(nameof(settings));
             }
             settings.ExcludedFileFilters.Add(filter);
+            return settings;
+        }
+
+        /// <summary>
+        /// Sets the register-option to "none"
+        /// </summary>
+        /// <param name="settings">The settings.</param>
+        /// <returns>The same <see cref="OpenCoverSettings"/> instance so that multiple calls can be chained.</returns>
+        public static OpenCoverSettings WithoutRegister(this OpenCoverSettings settings)
+        {
+            if (settings == null)
+            {
+                throw new ArgumentNullException(nameof(settings));
+            }
+            settings.Register = null;
+            return settings;
+        }
+
+        /// <summary>
+        /// Sets the register-option to admin-registry-access
+        /// </summary>
+        /// <param name="settings">The settings.</param>
+        /// <returns>The same <see cref="OpenCoverSettings"/> instance so that multiple calls can be chained.</returns>
+        public static OpenCoverSettings WithRegisterAdmin(this OpenCoverSettings settings)
+        {
+            if (settings == null)
+            {
+                throw new ArgumentNullException(nameof(settings));
+            }
+            settings.Register = OpenCoverRegisterOption.Admin;
+            return settings;
+        }
+
+        /// <summary>
+        /// Sets the register-option to user-registry-access
+        /// </summary>
+        /// <param name="settings">The settings.</param>
+        /// <returns>The same <see cref="OpenCoverSettings"/> instance so that multiple calls can be chained.</returns>
+        public static OpenCoverSettings WithRegisterUser(this OpenCoverSettings settings)
+        {
+            if (settings == null)
+            {
+                throw new ArgumentNullException(nameof(settings));
+            }
+            settings.Register = OpenCoverRegisterOption.User;
+            return settings;
+        }
+
+        /// <summary>
+        /// Sets the register-option to dll-registration (i.e no registry-access)
+        /// </summary>
+        /// <param name="settings">The settings.</param>
+        /// <param name="path">The path</param>
+        /// <returns>The same <see cref="OpenCoverSettings"/> instance so that multiple calls can be chained.</returns>
+        public static OpenCoverSettings WithRegisterDll(this OpenCoverSettings settings, FilePath path)
+        {
+            if (settings == null)
+            {
+                throw new ArgumentNullException(nameof(settings));
+            }
+            settings.Register = OpenCoverRegisterOption.Dll(path);
             return settings;
         }
     }

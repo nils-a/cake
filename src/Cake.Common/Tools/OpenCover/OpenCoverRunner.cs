@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using Cake.Core;
 using Cake.Core.IO;
 using Cake.Core.Tooling;
@@ -141,7 +142,10 @@ namespace Cake.Common.Tools.OpenCover
                 builder.Append("-mergeoutput");
             }
 
-            builder.AppendSwitch("-register", ":", settings.Register);
+            if (settings.Register != null)
+            {
+                builder.AppendSwitch("-register", string.Empty, settings.Register.ToString());
+            }
 
             if (settings.ReturnTargetCodeOffset != null)
             {
