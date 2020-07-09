@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System;
+
 using Cake.Core.IO;
 
 namespace Cake.Common.Tools.OpenCover
@@ -45,16 +46,14 @@ namespace Cake.Common.Tools.OpenCover
         /// <summary>
         /// Gets the register-option representing the "user"-mode.
         /// (this will translate to -register:user)
-        /// this
         /// </summary>
-        public static OpenCoverRegisterOption User => new OpenCoverRegisterOption("user");
+        public static OpenCoverRegisterOption User { get; } = new OpenCoverRegisterOption("user");
 
         /// <summary>
         /// Gets the register-option representing the "admin"-mode.
         /// (this will translate to -register)
-        /// this
         /// </summary>
-        public static OpenCoverRegisterOption Admin => new OpenCoverRegisterOption(string.Empty);
+        public static OpenCoverRegisterOption Admin { get; } = new OpenCoverRegisterOption(string.Empty);
 
         /// <summary>
         /// Gets a register-option pointing to a dll.
