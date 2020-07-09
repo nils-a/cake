@@ -1,3 +1,17 @@
+### New in 0.38.4 (Released 2020/06/26)
+
+* 2813 Actually ship  0.38.3
+
+### New in 0.38.3 (Released 2020/06/26)
+
+* 2803 ArgumentOutOfRangeException: The DateTimeOffset specified cannot be converted into a Zip file timestamp .
+* 2798 Input string not in correct format starting in v0.38.0.
+* 2799 Bump .NET Core SDK to 3.1.301.
+
+### New in 0.38.2 (Released 2020/06/09)
+
+* 2790 Cake 0.38.1 is failing to write messages to TeamCity
+
 ### New in 0.38.1 (Released 2020/05/30)
 
 * 2786 0.38.0 introduces TFBuild obsolete warning for everyone not just users of property
