@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System;
+
 using Cake.Core.IO;
 
 namespace Cake.Common.Tools.OpenCover
@@ -62,7 +63,7 @@ namespace Cake.Common.Tools.OpenCover
         }
 
         /// <summary>
-        /// Sets the register-option to "none"
+        /// Sets the register-option to "none".
         /// </summary>
         /// <param name="settings">The settings.</param>
         /// <returns>The same <see cref="OpenCoverSettings"/> instance so that multiple calls can be chained.</returns>
@@ -77,7 +78,7 @@ namespace Cake.Common.Tools.OpenCover
         }
 
         /// <summary>
-        /// Sets the register-option to admin-registry-access
+        /// Sets the register-option to admin-registry-access.
         /// </summary>
         /// <param name="settings">The settings.</param>
         /// <returns>The same <see cref="OpenCoverSettings"/> instance so that multiple calls can be chained.</returns>
@@ -92,7 +93,7 @@ namespace Cake.Common.Tools.OpenCover
         }
 
         /// <summary>
-        /// Sets the register-option to user-registry-access
+        /// Sets the register-option to user-registry-access.
         /// </summary>
         /// <param name="settings">The settings.</param>
         /// <returns>The same <see cref="OpenCoverSettings"/> instance so that multiple calls can be chained.</returns>
@@ -107,10 +108,10 @@ namespace Cake.Common.Tools.OpenCover
         }
 
         /// <summary>
-        /// Sets the register-option to dll-registration (i.e no registry-access)
+        /// Sets the register-option to dll-registration (i.e no registry-access).
         /// </summary>
         /// <param name="settings">The settings.</param>
-        /// <param name="path">The path</param>
+        /// <param name="path">The path.</param>
         /// <returns>The same <see cref="OpenCoverSettings"/> instance so that multiple calls can be chained.</returns>
         public static OpenCoverSettings WithRegisterDll(this OpenCoverSettings settings, FilePath path)
         {

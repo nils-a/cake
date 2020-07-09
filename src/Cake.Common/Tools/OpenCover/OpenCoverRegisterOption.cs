@@ -10,13 +10,24 @@ namespace Cake.Common.Tools.OpenCover
 {
     /// <summary>
     /// Represents the register-options:
-    ///  - empty for admin-registry-access
-    ///  - "user" for user-registry-access
-    ///  - path for non-registry-dll dll
+    /// <list type="bullet">
+    /// <item>
+    /// <term>empty</term>
+    /// <description>Registers and de-register the code coverage profiler. (Administrative permissions to the registry are required.)</description>
+    /// </item>
+    /// <item>
+    /// <term>"user"</term>
+    /// <description>Does per-user registration where the user account does not have administrative permissions.</description>
+    /// </item>
+    /// <item>
+    /// <term>path</term>
+    /// <description>If you do not want to use the registry entries, use -register:path to select the profiler.</description>
+    /// </item>
+    /// </list>
     /// </summary>
     public class OpenCoverRegisterOption
     {
-        private string value;
+        private readonly string value;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OpenCoverRegisterOption"/> class.
@@ -45,22 +56,22 @@ namespace Cake.Common.Tools.OpenCover
 
         /// <summary>
         /// Gets the register-option representing the "user"-mode.
-        /// (this will translate to -register:user)
+        /// (This will translate to "-register:user".)
         /// </summary>
         public static OpenCoverRegisterOption User { get; } = new OpenCoverRegisterOption("user");
 
         /// <summary>
         /// Gets the register-option representing the "admin"-mode.
-        /// (this will translate to -register)
+        /// (This will translate to "-register".)
         /// </summary>
         public static OpenCoverRegisterOption Admin { get; } = new OpenCoverRegisterOption(string.Empty);
 
         /// <summary>
         /// Gets a register-option pointing to a dll.
-        /// (this will translate to -register:[path-to-dll])
+        /// (This will translate to "-register:[path-to-dll]".)
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns>The <see cref="OpenCoverRegisterOption"/></returns>
+        /// <returns>The <see cref="OpenCoverRegisterOption"/>.</returns>
         public static OpenCoverRegisterOption Dll(FilePath path)
         {
             return new OpenCoverRegisterOption(path.FullPath);
@@ -68,7 +79,7 @@ namespace Cake.Common.Tools.OpenCover
 
         /// <summary>
         /// Performs an implicit conversion from <see cref="System.String"/> to <see cref="OpenCoverRegisterOption"/>.
-        /// (Since the switch from pure string to <see cref="OpenCoverRegisterOption"/> is a breaking change)
+        /// (Since the switch from pure string to <see cref="OpenCoverRegisterOption"/> is a breaking change.)
         /// </summary>
         /// <param name="option">The option.</param>
         /// <returns>
