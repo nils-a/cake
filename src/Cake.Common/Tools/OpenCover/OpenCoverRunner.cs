@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using Cake.Core;
 using Cake.Core.IO;
 using Cake.Core.Tooling;
@@ -143,6 +144,8 @@ namespace Cake.Common.Tools.OpenCover
 
             if (settings.Register != null)
             {
+                // due to the fact that register sometimes needs a colon-separator and sometimes it does not
+                // there is no separator here but instead it's added in OpenCoverRegisterOption.ToString()
                 builder.AppendSwitch("-register", string.Empty, settings.Register.ToString());
             }
 
