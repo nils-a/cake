@@ -25,17 +25,34 @@ namespace Cake.Common.Tools.OpenCover
     /// </item>
     /// </list>
     /// </summary>
-    public class OpenCoverRegisterOption
+    public abstract class OpenCoverRegisterOption
     {
-        private readonly string value;
+        private readonly string commandLineValue;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OpenCoverRegisterOption"/> class.
         /// </summary>
-        /// <param name="value">The value.</param>
-        public OpenCoverRegisterOption(string value)
+        /// <param name="commandLineValue">The value, as required for the commandline.</param>
+        /// <remarks>
+        /// Note that no value (<c>null</c> or <c>string.Empty</c>) is valid.
+        /// However, if a value exists it NEEDS to start with a colon (":").
+        /// </remarks>
+        protected OpenCoverRegisterOption(string commandLineValue)
         {
-            this.value = value;
+            if (string.IsNullOrEmpty(commandLineValue))
+            {
+                commandLineValue = string.Empty;
+            }
+
+            if (!string.IsNullOrEmpty(commandLineValue))
+            {
+                if (!commandLineValue.StartsWith(":", StringComparison.Ordinal))
+                {
+                    throw new ArgumentException(nameof(commandLineValue), "if a non-empty value is given, it needs to start with ':'");
+                }
+            }
+
+            this.commandLineValue = commandLineValue;
         }
 
         /// <summary>
@@ -46,35 +63,7 @@ namespace Cake.Common.Tools.OpenCover
         /// </returns>
         public override string ToString()
         {
-            if (string.IsNullOrEmpty(value))
-            {
-                return string.Empty;
-            }
-
-            return $":{value}";
-        }
-
-        /// <summary>
-        /// Gets the register-option representing the "user"-mode.
-        /// (This will translate to "-register:user".)
-        /// </summary>
-        public static OpenCoverRegisterOption User { get; } = new OpenCoverRegisterOption("user");
-
-        /// <summary>
-        /// Gets the register-option representing the "admin"-mode.
-        /// (This will translate to "-register".)
-        /// </summary>
-        public static OpenCoverRegisterOption Admin { get; } = new OpenCoverRegisterOption(string.Empty);
-
-        /// <summary>
-        /// Gets a register-option pointing to a dll.
-        /// (This will translate to "-register:[path-to-dll]".)
-        /// </summary>
-        /// <param name="path">The path.</param>
-        /// <returns>The <see cref="OpenCoverRegisterOption"/>.</returns>
-        public static OpenCoverRegisterOption Dll(FilePath path)
-        {
-            return new OpenCoverRegisterOption(path.FullPath);
+            return commandLineValue;
         }
 
         /// <summary>
@@ -86,6 +75,71 @@ namespace Cake.Common.Tools.OpenCover
         /// The result of the conversion.
         /// </returns>
         [Obsolete("use new OpenCoverRegisterOption() instead.")]
-        public static implicit operator OpenCoverRegisterOption(string option) => new OpenCoverRegisterOption(option);
+        public static implicit operator OpenCoverRegisterOption(string option)
+        {
+            if (string.IsNullOrEmpty(option))
+            {
+                return new OpenCoverRegisterOptionAdmin();
+            }
+
+            if (option.Equals("user", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return new OpenCoverRegisterOptionUser();
+            }
+
+            return new OpenCoverRegisterOptionDll(new FilePath(option));
+        }
+    }
+
+    /// <summary>
+    /// Gets the register-option representing the "user"-mode.
+    /// (This will translate to "-register:user".)
+    /// </summary>
+    /// <seealso cref="OpenCoverRegisterOption" />
+    public class OpenCoverRegisterOptionUser
+        : OpenCoverRegisterOption
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OpenCoverRegisterOptionUser"/> class.
+        /// </summary>
+        public OpenCoverRegisterOptionUser()
+            : base(":user")
+        {
+        }
+    }
+
+    /// <summary>
+    /// Gets the register-option representing the "admin"-mode.
+    /// (This will translate to "-register".)
+    /// </summary>
+    /// <seealso cref="OpenCoverRegisterOption" />
+    public class OpenCoverRegisterOptionAdmin
+        : OpenCoverRegisterOption
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OpenCoverRegisterOptionAdmin"/> class.
+        /// </summary>
+        public OpenCoverRegisterOptionAdmin()
+            : base(string.Empty)
+        {
+        }
+    }
+
+    /// <summary>
+    /// Gets a register-option pointing to a dll.
+    /// (This will translate to "-register:[path-to-dll]".)
+    /// </summary>
+    /// <seealso cref="OpenCoverRegisterOption" />
+    public class OpenCoverRegisterOptionDll
+        : OpenCoverRegisterOption
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OpenCoverRegisterOptionDll"/> class.
+        /// </summary>
+        /// <param name="pathToDll">Path to the dll.</param>
+        public OpenCoverRegisterOptionDll(FilePath pathToDll)
+            : base($":{pathToDll.FullPath}")
+        {
+        }
     }
 }

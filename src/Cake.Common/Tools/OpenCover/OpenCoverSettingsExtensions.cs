@@ -88,7 +88,7 @@ namespace Cake.Common.Tools.OpenCover
             {
                 throw new ArgumentNullException(nameof(settings));
             }
-            settings.Register = OpenCoverRegisterOption.Admin;
+            settings.Register = new OpenCoverRegisterOptionAdmin();
             return settings;
         }
 
@@ -103,7 +103,7 @@ namespace Cake.Common.Tools.OpenCover
             {
                 throw new ArgumentNullException(nameof(settings));
             }
-            settings.Register = OpenCoverRegisterOption.User;
+            settings.Register = new OpenCoverRegisterOptionUser();
             return settings;
         }
 
@@ -119,7 +119,7 @@ namespace Cake.Common.Tools.OpenCover
             {
                 throw new ArgumentNullException(nameof(settings));
             }
-            settings.Register = OpenCoverRegisterOption.Dll(path);
+            settings.Register = new OpenCoverRegisterOptionDll(path);
             return settings;
         }
     }

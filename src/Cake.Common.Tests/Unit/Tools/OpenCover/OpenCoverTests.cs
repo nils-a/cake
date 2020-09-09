@@ -229,7 +229,7 @@ namespace Cake.Common.Tests.Unit.Tools.OpenCover
             {
                 // Given
                 var fixture = new OpenCoverFixture();
-                fixture.Settings.Register = new OpenCoverRegisterOption("Path32");
+                fixture.Settings.Register = new OpenCoverRegisterOptionDll("Path32");
 
                 // When
                 var result = fixture.Run();
@@ -261,7 +261,7 @@ namespace Cake.Common.Tests.Unit.Tools.OpenCover
             {
                 // Given
                 var fixture = new OpenCoverFixture();
-                fixture.Settings.Register = OpenCoverRegisterOption.Admin;
+                fixture.Settings.Register = new OpenCoverRegisterOptionAdmin();
 
                 // When
                 var result = fixture.Run();
@@ -270,6 +270,22 @@ namespace Cake.Common.Tests.Unit.Tools.OpenCover
                 Assert.Equal("-target:\"/Working/tools/Test.exe\" " +
                              "-targetargs:\"-argument\" " +
                              "-register -output:\"/Working/result.xml\"", result.Args);
+            }
+
+            [Fact]
+            public void Should_Use_User_Register()
+            {
+                // Given
+                var fixture = new OpenCoverFixture();
+                fixture.Settings.Register = new OpenCoverRegisterOptionUser();
+
+                // When
+                var result = fixture.Run();
+
+                // Then
+                Assert.Equal("-target:\"/Working/tools/Test.exe\" " +
+                             "-targetargs:\"-argument\" " +
+                             "-register:user -output:\"/Working/result.xml\"", result.Args);
             }
 
             [Fact]

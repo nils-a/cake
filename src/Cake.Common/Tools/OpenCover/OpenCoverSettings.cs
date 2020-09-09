@@ -113,7 +113,7 @@ namespace Cake.Common.Tools.OpenCover
             _filters = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             _excludedAttributeFilters = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             _excludedFileFilters = new HashSet<string>(StringComparer.Ordinal);
-            Register = OpenCoverRegisterOption.User;
+            Register = new OpenCoverRegisterOptionUser();
             LogLevel = OpenCoverLogLevel.Info;
             _excludeDirectories = new HashSet<DirectoryPath>();
             _searchDirectories = new HashSet<DirectoryPath>();
