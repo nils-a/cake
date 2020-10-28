@@ -9,7 +9,7 @@
 // Install tools.
 #tool "nuget:https://api.nuget.org/v3/index.json?package=coveralls.io&version=1.4.2"
 #tool "nuget:https://api.nuget.org/v3/index.json?package=OpenCover&version=4.7.922"
-#tool "nuget:https://api.nuget.org/v3/index.json?package=ReportGenerator&version=4.5.8"
+#tool "nuget:https://api.nuget.org/v3/index.json?package=ReportGenerator&version=4.7.1"
 #tool "nuget:https://api.nuget.org/v3/index.json?package=nuget.commandline&version=5.5.1"
 
 // Install .NET Core Global tools.
